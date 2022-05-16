@@ -5,10 +5,10 @@ import 'package:provider/provider.dart';
 // ignore: import_of_legacy_library_into_null_safe
 // import 'package:transformer_page_view/transformer_page_view.dart';
 import 'package:tenkoyoho2/model/data/static_data.dart';
-import 'package:tenkoyoho2/model/weather_locations.dart';
+// import 'package:tenkoyoho2/model/weather_locations.dart';
 import 'package:tenkoyoho2/screen/weather_user_viewmodel.dart';
 import 'package:tenkoyoho2/screen/weather_viewmodel.dart';
-import 'package:tenkoyoho2/screen/weather_world_screen.dart';
+// import 'package:tenkoyoho2/screen/weather_world_screen.dart';
 import 'package:tenkoyoho2/service/location_service.dart';
 // import 'package:tenkoyoho2/widgets/buildin_transform.dart';
 import 'package:tenkoyoho2/widget/navigation_drawer.dart';
@@ -45,7 +45,7 @@ class _WeatherAppScreenState extends State<WeatherAppScreen> {
   String? subLocality = '';
   String? thoroughfare = '';
   String? subThoroughfare = '';
-  int _currentPage = 0;
+  // int _currentPage = 0;
   late String bgImg;
   bool add = true;
 
@@ -146,8 +146,8 @@ class _WeatherAppScreenState extends State<WeatherAppScreen> {
         ),
       );
     } else {
-      print(
-          'This is data from weatherViewModel: ${weatherViewModel.weathers.length}');
+      // print(
+      //     'This is data from weatherViewModel: ${weatherViewModel.weathers.length}');
     }
     final weatherUserViewModel = Provider.of<WeatherUserViewModel>(context);
     if (weatherUserViewModel.weathers.cityName == '') {
@@ -176,18 +176,39 @@ class _WeatherAppScreenState extends State<WeatherAppScreen> {
         ),
       );
     } else {
-      print(
-          'This is data from weatherUserViewModel: ${weatherUserViewModel.weathers}');
+      // print(
+      //     'This is data from weatherUserViewModel: ${weatherUserViewModel.weathers}');
     }
-    // String? wT =
-    //     weatherViewModel.weathers[_currentPage].data![0].weather?.description;
-    String? wT = 'Thunderstorm with light rain';
+    String? wT = weatherUserViewModel.weathers.data![0].weather?.description;
+    // String? wT = 'Thunderstorm with light rain';
 
     List<Map> weatherTypes = StaticData.weatherTypes;
-    print('This is weatherTypes: ${weatherTypes.length}');
+    // print('This is weatherTypes: ${weatherTypes.length}');
     for (int i = 0; i < weatherTypes.length; i++) {
       if (weatherTypes[i]['weatherType'] == wT) {
-        bgImg = weatherTypes[i]['icon'];
+        bgImg = weatherTypes[i]['bg'];
+        // print('This is bgImg: $bgImg');
+      }
+    }
+    double? widthWindSpd = 0;
+    if (weatherUserViewModel.weathers.data![0].windSpd > 0) {
+      widthWindSpd = weatherUserViewModel.weathers.data![0].windSpd.toDouble();
+      if (widthWindSpd! > 50) {
+        widthWindSpd = 50;
+      }
+    }
+    double? widthHumidity = 0;
+    if (weatherUserViewModel.weathers.data![0].rh! > 0) {
+      widthHumidity = weatherUserViewModel.weathers.data![0].rh!.toDouble();
+      if (widthHumidity > 50) {
+        widthHumidity = 50;
+      }
+    }
+    double? widthVis = 0;
+    if (weatherUserViewModel.weathers.data![0].vis! > 0) {
+      widthVis = weatherUserViewModel.weathers.data![0].vis!.toDouble();
+      if (widthVis! > 50) {
+        widthVis = 50;
       }
     }
 
@@ -298,7 +319,7 @@ class _WeatherAppScreenState extends State<WeatherAppScreen> {
                               ),
                             ),
                             Text(
-                              weatherLocations[0].dateTime,
+                              '${weatherUserViewModel.weathers.timezone}',
                               style: GoogleFonts.lato(
                                 fontSize: 14,
                                 color: Colors.white,
@@ -310,7 +331,7 @@ class _WeatherAppScreenState extends State<WeatherAppScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              weatherLocations[0].temperature,
+                              '${weatherUserViewModel.weathers.data![0].temp}°',
                               style: GoogleFonts.lato(
                                 fontSize: 85,
                                 fontWeight: FontWeight.w300,
@@ -322,19 +343,18 @@ class _WeatherAppScreenState extends State<WeatherAppScreen> {
                               children: [
                                 Row(
                                   children: [
-                                    SvgPicture.asset(
-                                      weatherLocations[0].iconUrl,
-                                      height: 35,
-                                      width: 35,
-                                      color: Colors.white,
+                                    Image.network(
+                                      'https://www.weatherbit.io/static/img/icons/${weatherUserViewModel.weathers.data![0].weather!.icon}.png',
+                                      height: 30,
+                                      width: 30,
                                     ),
                                     const SizedBox(
                                       width: 10,
                                     ),
                                     Text(
-                                      weatherLocations[0].weatherType,
+                                      '${weatherUserViewModel.weathers.data![0].weather!.description}',
                                       style: GoogleFonts.lato(
-                                        fontSize: 25,
+                                        fontSize: 20,
                                         fontWeight: FontWeight.w300,
                                         color: Colors.white,
                                       ),
@@ -404,7 +424,7 @@ class _WeatherAppScreenState extends State<WeatherAppScreen> {
                                   ),
                                 ),
                                 Text(
-                                  '${weatherLocations[0].windSpeed}',
+                                  '${weatherUserViewModel.weathers.data![0].windSpd}',
                                   style: GoogleFonts.lato(
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
@@ -431,7 +451,7 @@ class _WeatherAppScreenState extends State<WeatherAppScreen> {
                                     ),
                                     Container(
                                       height: 5,
-                                      width: 5,
+                                      width: widthWindSpd,
                                       color: Colors.blueAccent,
                                     ),
                                   ],
@@ -449,7 +469,7 @@ class _WeatherAppScreenState extends State<WeatherAppScreen> {
                                   ),
                                 ),
                                 Text(
-                                  '${weatherLocations[0].humidity}',
+                                  '${weatherUserViewModel.weathers.data![0].rh}',
                                   style: GoogleFonts.lato(
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
@@ -476,7 +496,7 @@ class _WeatherAppScreenState extends State<WeatherAppScreen> {
                                     ),
                                     Container(
                                       height: 5,
-                                      width: 30,
+                                      width: widthHumidity,
                                       color: Colors.greenAccent,
                                     ),
                                   ],
@@ -486,7 +506,7 @@ class _WeatherAppScreenState extends State<WeatherAppScreen> {
                             Column(
                               children: [
                                 Text(
-                                  'Rain',
+                                  'Visibility',
                                   style: GoogleFonts.lato(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
@@ -494,7 +514,7 @@ class _WeatherAppScreenState extends State<WeatherAppScreen> {
                                   ),
                                 ),
                                 Text(
-                                  '${weatherLocations[0].rain}',
+                                  '${weatherUserViewModel.weathers.data![0].vis}',
                                   style: GoogleFonts.lato(
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
@@ -502,7 +522,7 @@ class _WeatherAppScreenState extends State<WeatherAppScreen> {
                                   ),
                                 ),
                                 Text(
-                                  'mm',
+                                  'km',
                                   style: GoogleFonts.lato(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
@@ -521,7 +541,7 @@ class _WeatherAppScreenState extends State<WeatherAppScreen> {
                                     ),
                                     Container(
                                       height: 5,
-                                      width: 50,
+                                      width: widthVis,
                                       color: Colors.yellowAccent,
                                     ),
                                   ],
@@ -532,16 +552,6 @@ class _WeatherAppScreenState extends State<WeatherAppScreen> {
                         ),
                       ),
                     ],
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 100, left: 20),
-              child: Column(
-                children: [
-                  Text(
-                    '${weatherViewModel.weathers[0].cityName}',
                   ),
                 ],
               ),

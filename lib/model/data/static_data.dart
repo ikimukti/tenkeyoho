@@ -2,155 +2,155 @@ class StaticData {
   static const List<Map> weatherTypes = [
     {
       'weatherType': 'Thunderstorm with light rain',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/Thunderstormwithlightrain.jpg',
     },
     {
       'weatherType': 'Thunderstorm with rain',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/Thunderstormwithrain.jpg',
     },
     {
       'weatherType': 'Thunderstorm with heavy rain',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/Thunderstormwithheavyrain.jpg',
     },
     {
       'weatherType': 'Thunderstorm with light drizzle',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/Thunderstormwithlightdrizzle.jpg',
     },
     {
       'weatherType': 'Thunderstorm with drizzle',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/Thunderstormwithdrizzle.jpg',
     },
     {
       'weatherType': 'Thunderstorm with heavy drizzle',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/Thunderstormwithheavydrizzle.jpg',
     },
     {
       'weatherType': 'Thunderstorm with Hail',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/Thunderstormwithhail.jpg',
     },
     {
       'weatherType': 'Light Drizzle',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/LightDrizzle.jpg',
     },
     {
       'weatherType': 'Drizzle',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/Drizzle.jpg',
     },
     {
       'weatherType': 'Heavy Drizzle',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/HeavyDrizzle.jpg',
     },
     {
       'weatherType': 'Light Rain',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/LightRain.jpg',
     },
     {
-      'weatherType': 'Moderate Rain',
-      'icon': 'assets/sunny.jpg',
+      'weatherType': 'Moderate rain',
+      'bg': 'assets/ModerateRain.jpg',
     },
     {
       'weatherType': 'Heavy Rain',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/HeavyRain.jpg',
     },
     {
       'weatherType': 'Freezing rain',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/FreezingRain.jpg',
     },
     {
       'weatherType': 'Light shower rain',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/LightShowerRain.jpg',
     },
     {
       'weatherType': 'Shower rain',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/ShowerRain.jpg',
     },
     {
       'weatherType': 'Heavy shower rain',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/HeavyShowerRain.jpg',
     },
     {
       'weatherType': 'Light snow',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/LightSnow.jpg',
     },
     {
       'weatherType': 'Snow',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/Snow.jpg',
     },
     {
       'weatherType': 'Heavy snow',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/HeavySnow.jpg',
     },
     {
       'weatherType': 'Mix snow/rain',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/MixSnowRain.jpg',
     },
     {
       'weatherType': 'Sleet',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/Sleet.jpg',
     },
     {
       'weatherType': 'Heavy sleet',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/HeavySleet.jpg',
     },
     {
       'weatherType': 'Snow shower',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/SnowShower.jpg',
     },
     {
       'weatherType': 'Heavy snow shower',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/HeavySnowShower.jpg',
     },
     {
       'weatherType': 'Flurries',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/Flurries.jpg',
     },
     {
       'weatherType': 'Mist',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/Mist.jpg',
     },
     {
       'weatherType': 'Smoke',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/Smoke.jpg',
     },
     {
       'weatherType': 'Haze',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/Haze.jpg',
     },
     {
       'weatherType': 'Sand/dust',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/SandDust.jpg',
     },
     {
       'weatherType': 'Fog',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/Fog.jpg',
     },
     {
       'weatherType': 'Freezing Fog',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/FreezingFog.jpg',
     },
     {
-      'weatherType': 'Clear sky',
-      'icon': 'assets/sunny.jpg',
+      'weatherType': 'Clear Sky',
+      'bg': 'assets/ClearSky.jpg',
     },
     {
       'weatherType': 'Few clouds',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/FewClouds.jpg',
     },
     {
       'weatherType': 'Scattered clouds',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/ScatteredClouds.jpg',
     },
     {
       'weatherType': 'Broken clouds',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/BrokenClouds.jpg',
     },
     {
       'weatherType': 'Overcast clouds',
-      'icon': 'assets/rainy.jpg',
+      'bg': 'assets/OvercastClouds.jpg',
     },
     {
       'weatherType': 'Unknown Precipitation',
-      'icon': 'assets/sunny.jpg',
+      'bg': 'assets/UnknownPrecipitation.jpg',
     },
   ];
 }

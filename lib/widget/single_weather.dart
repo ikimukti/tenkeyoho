@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tenkoyoho2/model/weather_locations.dart';
+// import 'package:tenkoyoho2/model/weather_locations.dart';
 
 // ignore: must_be_immutable
 class SingleWeatherWidget extends StatelessWidget {
@@ -33,7 +33,7 @@ class SingleWeatherWidget extends StatelessWidget {
                         height: 90,
                       ),
                       Text(
-                        weatherLocations[index].city,
+                        '',
                         style: GoogleFonts.lato(
                           fontSize: 40,
                           fontWeight: FontWeight.bold,
@@ -41,7 +41,7 @@ class SingleWeatherWidget extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        weatherLocations[index].dateTime,
+                        '',
                         style: GoogleFonts.lato(
                           fontSize: 14,
                           color: Colors.white,
@@ -53,7 +53,7 @@ class SingleWeatherWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        weatherLocations[index].temperature,
+                        '',
                         style: GoogleFonts.lato(
                           fontSize: 85,
                           fontWeight: FontWeight.w300,
@@ -66,7 +66,7 @@ class SingleWeatherWidget extends StatelessWidget {
                           Row(
                             children: [
                               SvgPicture.asset(
-                                weatherLocations[index].iconUrl,
+                                '',
                                 height: 35,
                                 width: 35,
                                 color: Colors.white,
@@ -75,7 +75,7 @@ class SingleWeatherWidget extends StatelessWidget {
                                 width: 10,
                               ),
                               Text(
-                                weatherLocations[index].weatherType,
+                                '',
                                 style: GoogleFonts.lato(
                                   fontSize: 25,
                                   fontWeight: FontWeight.w300,
@@ -147,7 +147,7 @@ class SingleWeatherWidget extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '${weatherLocations[index].windSpeed}',
+                            '',
                             style: GoogleFonts.lato(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
@@ -192,7 +192,7 @@ class SingleWeatherWidget extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '${weatherLocations[index].humidity}',
+                            '',
                             style: GoogleFonts.lato(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
@@ -237,7 +237,7 @@ class SingleWeatherWidget extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '${weatherLocations[index].rain}',
+                            '',
                             style: GoogleFonts.lato(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,

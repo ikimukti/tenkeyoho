@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+// import 'package:flutter/material.dart';
+// import 'package:provider/provider.dart';
 import 'package:tenkoyoho2/model/user_location_model.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:tenkoyoho2/screen/weather_user_viewmodel.dart';
+// import 'package:tenkoyoho2/screen/weather_user_viewmodel.dart';
 
 class LocationService {
   final StreamController<UserLocation> _locationStreamController =

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tenkoyoho2/model/api/weather_api.dart';
+// import 'package:tenkoyoho2/model/api/weather_api.dart';
 import 'package:tenkoyoho2/model/api/weather_user_api.dart';
 // import 'package:tenkoyoho2/model/api/weather_user_api.dart';
 // import 'package:tenkoyoho2/model/weather2_model.dart';

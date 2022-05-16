@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 // ignore: import_of_legacy_library_into_null_safe
 // import 'package:transformer_page_view/transformer_page_view.dart';
 import 'package:tenkoyoho2/model/data/static_data.dart';
-import 'package:tenkoyoho2/model/weather_locations.dart';
 import 'package:tenkoyoho2/screen/weather_indonesia_viewmodel.dart';
-import 'package:tenkoyoho2/screen/weather_world_viewmodel.dart';
+// import 'package:tenkoyoho2/model/weather_locations.dart';
+// import 'package:tenkoyoho2/screen/weather_world_viewmodel.dart';
 import 'package:tenkoyoho2/screen/weather_app.dart';
 // import 'package:tenkoyoho2/screen/weather_viewmodel.dart';
 // import 'package:tenkoyoho2/widgets/buildin_transform.dart';
@@ -26,7 +27,7 @@ class WeatherIndoScreen extends StatefulWidget {
 
 class _WeatherIndoScreenState extends State<WeatherIndoScreen> {
   int _currentPage = 0;
-  late String bgImg;
+  String bgImg = 'assets/sunny.jpg';
   bool add = true;
 
   _onPageChanged(int index) {
@@ -81,17 +82,26 @@ class _WeatherIndoScreenState extends State<WeatherIndoScreen> {
         ),
       );
     } else {
-      print(
-          'This is data from weatherViewModel: ${weatherViewModel.weathers.length}');
+      // print(
+      //     'This is data from weatherViewModel: ${weatherViewModel.weathers.length}');
     }
     String? wT =
         weatherViewModel.weathers[_currentPage].data![0].weather?.description;
+    print('This is wT: $wT');
 
+    // print('This is bgImg: $bgImg');
     List<Map> weatherTypes = StaticData.weatherTypes;
-    print('This is weatherTypes: ${weatherTypes.length}');
+    // print('This is weatherTypes: ${weatherTypes.length}');
     for (int i = 0; i < weatherTypes.length; i++) {
+      // print(weatherTypes[i]['weatherType']);
+      // print(wT);
+      print('$wT = ${weatherTypes[i]['weatherType']}');
       if (weatherTypes[i]['weatherType'] == wT) {
-        bgImg = weatherTypes[i]['icon'];
+        // print(
+        //     'This is weatherTypes[i][\'weatherType\']: ${weatherTypes[i]['weatherType']}');
+        bgImg = weatherTypes[i]['bg'];
+        print('This is bgImg: $bgImg');
+        break;
       }
     }
 
@@ -158,6 +168,7 @@ class _WeatherIndoScreenState extends State<WeatherIndoScreen> {
             AnimatedContainer(
               duration: const Duration(milliseconds: 100),
               child: Image.asset(
+                // 'assets/ModerateRain.jpg',
                 bgImg,
                 fit: BoxFit.cover,
                 height: double.infinity,
@@ -179,18 +190,23 @@ class _WeatherIndoScreenState extends State<WeatherIndoScreen> {
             Container(
               margin: const EdgeInsets.only(top: 100, left: 20),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  for (int index = 0;
-                      index < weatherViewModel.weathers.length;
-                      index++)
-                    if (index == _currentPage)
-                      SliderDotWidget(
-                        isActive: true,
-                      )
-                    else
-                      SliderDotWidget(
-                        isActive: false,
-                      ),
+                  Row(
+                    children: [
+                      for (int index = 0;
+                          index < weatherViewModel.weathers.length;
+                          index++)
+                        if (index == _currentPage)
+                          SliderDotWidget(
+                            isActive: true,
+                          )
+                        else
+                          SliderDotWidget(
+                            isActive: false,
+                          ),
+                    ],
+                  ),
                 ],
               ),
             ),

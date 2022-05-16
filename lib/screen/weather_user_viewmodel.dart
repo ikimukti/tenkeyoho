@@ -16,12 +16,12 @@ class WeatherUserViewModel with ChangeNotifier {
   bool repeat = true;
 
   getWeathers(double latitude, double longitude) async {
-    print('latitude XXXXX: $latitude');
-    print('longitude XXXXX: $longitude');
+    // print('latitude XXXXX: $latitude');
+    // print('longitude XXXXX: $longitude');
     WeatherModel _weather =
         await WeatherUserAPI.getWeatherUser(latitude, longitude);
     // if (repeat) {
-    print('weather OOOO: ${_weather.cityName}');
+    // print('weather OOOO: ${_weather.cityName}');
     _weathers.cityName = _weather.cityName;
     _weathers.countryCode = _weather.countryCode;
     _weathers.data = _weather.data;

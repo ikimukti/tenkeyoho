@@ -10,11 +10,11 @@ class WeatherAPI {
       Map location = locationList[i];
       String city = location['city'];
       String code = location['code'];
-      double lat = location['lat'];
-      double lon = location['lon'];
+      // double lat = location['lat'];
+      // double lon = location['lon'];
       try {
         Response response =
-            await Future.delayed(const Duration(seconds: 2), () async {
+            await Future.delayed(const Duration(seconds: 1), () async {
           return await Dio().get(
             'https://api.weatherbit.io/v2.0/forecast/daily?city=$city,$code&key=$kOpenWeatherMapAPIKey',
           );
