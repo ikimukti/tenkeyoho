@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 // ignore: import_of_legacy_library_into_null_safe
 // import 'package:transformer_page_view/transformer_page_view.dart';
 import 'package:tenkoyoho2/model/data/static_data.dart';
+import 'package:tenkoyoho2/screen/weather_detail_screen.dart';
 // import 'package:tenkoyoho2/model/weather_locations.dart';
 import 'package:tenkoyoho2/screen/weather_user_viewmodel.dart';
 import 'package:tenkoyoho2/screen/weather_viewmodel.dart';
@@ -365,6 +366,11 @@ class _WeatherAppScreenState extends State<WeatherAppScreen> {
                                   onTap: () {
                                     // ignore: avoid_print
                                     print('Tapped Details');
+                                    Navigator.pushNamed(
+                                      context,
+                                      WeatherDetailScreen.route,
+                                      arguments: weatherUserViewModel.weathers,
+                                    );
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.only(top: 20),

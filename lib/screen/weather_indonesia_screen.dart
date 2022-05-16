@@ -14,7 +14,7 @@ import 'package:tenkoyoho2/screen/weather_app.dart';
 import 'package:tenkoyoho2/widget/navigation_drawer.dart';
 import 'package:tenkoyoho2/widget/single_weather_indo.dart';
 // import 'package:tenkoyoho2/widget/single_weather.dart';
-import 'package:tenkoyoho2/widget/single_weather_world.dart';
+// import 'package:tenkoyoho2/widget/single_weather_world.dart';
 import 'package:tenkoyoho2/widget/slider_dot.dart';
 
 class WeatherIndoScreen extends StatefulWidget {

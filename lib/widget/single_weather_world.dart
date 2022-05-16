@@ -132,10 +132,7 @@ class SingleWeatherWorldWidget extends StatelessWidget {
                             Navigator.pushNamed(
                               context,
                               WeatherDetailScreen.route,
-                              arguments: {
-                                'datas': weatherViewModel.weathers[index],
-                                'weather': 'world',
-                              },
+                              arguments: weatherViewModel.weathers[index],
                             );
                           },
                           child: Padding(

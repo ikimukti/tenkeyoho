@@ -41,7 +41,7 @@ class StaticData {
       'bg': 'assets/HeavyDrizzle.jpg',
     },
     {
-      'weatherType': 'Light Rain',
+      'weatherType': 'Light rain',
       'bg': 'assets/LightRain.jpg',
     },
     {
@@ -49,7 +49,7 @@ class StaticData {
       'bg': 'assets/ModerateRain.jpg',
     },
     {
-      'weatherType': 'Heavy Rain',
+      'weatherType': 'Heavy rain',
       'bg': 'assets/HeavyRain.jpg',
     },
     {

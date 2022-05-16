@@ -75,16 +75,6 @@ class NavigationDrawerWidget extends StatelessWidget {
           ),
           ListTile(
             title: Text(
-              'Settings',
-              style: GoogleFonts.lato(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            leading: const Icon(Icons.settings),
-          ),
-          ListTile(
-            title: Text(
               'About',
               style: GoogleFonts.lato(
                 fontSize: 14,

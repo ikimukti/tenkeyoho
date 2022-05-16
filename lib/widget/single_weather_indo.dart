@@ -25,6 +25,9 @@ class SingleWeatherIndoWidget extends StatelessWidget {
     double? barCloud =
         weatherViewModel.weathers[index].data![0].cloudsMid?.toDouble();
     barCloud = (barCloud! / 2);
+    double? barWind =
+        weatherViewModel.weathers[index].data![0].windSpd?.toDouble();
+    barWind = (barWind! / 2);
     // ignore: avoid_unnecessary_containers
     return Container(
       child: Container(
@@ -112,10 +115,7 @@ class SingleWeatherIndoWidget extends StatelessWidget {
                               Navigator.pushNamed(
                                 context,
                                 WeatherDetailScreen.route,
-                                arguments: {
-                                  'datas': weatherViewModel.weathers[index],
-                                  'weather': 'world',
-                                },
+                                arguments: weatherViewModel.weathers[index],
                               );
                             },
                             child: Padding(
@@ -203,8 +203,7 @@ class SingleWeatherIndoWidget extends StatelessWidget {
                               ),
                               Container(
                                 height: 5,
-                                width: weatherViewModel
-                                    .weathers[index].data![0].windSpd,
+                                width: barWind,
                                 color: Colors.blueAccent,
                               ),
                             ],

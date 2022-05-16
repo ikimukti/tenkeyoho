@@ -12,6 +12,7 @@ import 'package:tenkoyoho2/screen/weather_app.dart';
 // import 'package:tenkoyoho2/screen/weather_viewmodel.dart';
 // import 'package:tenkoyoho2/widgets/buildin_transform.dart';
 import 'package:tenkoyoho2/widget/navigation_drawer.dart';
+import 'package:tenkoyoho2/widget/slider_dot.dart';
 // import 'package:tenkoyoho2/widget/single_weather.dart';
 // import 'package:tenkoyoho2/widget/single_weather_world.dart';
 // import 'package:tenkoyoho2/widget/slider_dot.dart';
@@ -25,38 +26,61 @@ class WeatherDetailScreen extends StatefulWidget {
 }
 
 class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
-  // final int _currentPage = 0;
+  int _currentPage = 0;
   late String bgImg = '';
   bool add = true;
 
-  // _onPageChanged(int index) {
-  //   setState(() {
-  //     _currentPage = index;
-  //   });
-  // }
+  _onPageChanged(int index) {
+    setState(() {
+      _currentPage = index;
+    });
+  }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    final Map datass = ModalRoute.of(context)?.settings.arguments as Map;
-    // String wT = weatherLocations[_currentPage].weatherType;
-    WeatherModel wTw = datass['datas'] as WeatherModel;
+    final WeatherModel datas =
+        ModalRoute.of(context)?.settings.arguments as WeatherModel;
+    String? wT = datas.data![_currentPage].weather!.description;
+    print('This is wT: $wT');
 
+    // print('This is bgImg: $bgImg');
     List<Map> weatherTypes = StaticData.weatherTypes;
     // print('This is weatherTypes: ${weatherTypes.length}');
     for (int i = 0; i < weatherTypes.length; i++) {
-      if (weatherTypes[i]['weatherType'] == wTw.data![0].weather!.description) {
-        bgImg = weatherTypes[i]['icon'];
+      // print(weatherTypes[i]['weatherType']);
+      // print(wT);
+      print('$wT = ${weatherTypes[i]['weatherType']}');
+      if (weatherTypes[i]['weatherType'] == wT) {
+        // print(
+        //     'This is weatherTypes[i][\'weatherType\']: ${weatherTypes[i]['weatherType']}');
+        bgImg = weatherTypes[i]['bg'];
+        print('This is bgImg: $bgImg');
+        break;
       }
     }
-    if (bgImg == '') {
-      bgImg = 'assets/tornado.jpg';
+    double? widthWindSpd = 0;
+    if (datas.data![0].windSpd > 0) {
+      widthWindSpd = datas.data![0].windSpd.toDouble();
+      if (widthWindSpd! > 50) {
+        widthWindSpd = 50;
+      }
     }
-    double? barHumidity = wTw.data![0].rh?.toDouble();
-    barHumidity = (barHumidity! / 2);
-    double? barCloud = wTw.data![0].cloudsMid?.toDouble();
-    barCloud = (barCloud! / 2);
+    double? widthHumidity = 0;
+    if (datas.data![0].rh! > 0) {
+      widthHumidity = datas.data![0].rh!.toDouble();
+      if (widthHumidity > 50) {
+        widthHumidity = 50;
+      }
+    }
+    double? widthVis = 0;
+    if (datas.data![0].vis! > 0) {
+      widthVis = datas.data![0].vis!.toDouble();
+      if (widthVis! > 50) {
+        widthVis = 50;
+      }
+    }
     return Scaffold(
       key: _scaffoldKey,
       endDrawer: const NavigationDrawerWidget(),
@@ -139,277 +163,277 @@ class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              margin: const EdgeInsets.only(top: 100, left: 20),
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(
-                              height: 90,
-                            ),
-                            Text(
-                              '${wTw.cityName}',
-                              style: GoogleFonts.lato(
-                                fontSize: 40,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Text(
-                              '${wTw.countryCode} ${wTw.timezone}',
-                              style: GoogleFonts.lato(
-                                fontSize: 14,
-                                color: Colors.white,
-                              ),
-                            )
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '${wTw.data![0].validDate}',
-                              style: GoogleFonts.lato(
-                                fontSize: 10,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Text(
-                              '${wTw.data![0].temp}°',
-                              style: GoogleFonts.lato(
-                                fontSize: 85,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Image.network(
-                                      'https://www.weatherbit.io/static/img/icons/${wTw.data![0].weather!.icon}.png',
-                                      height: 30,
-                                      width: 30,
-                                      color: Colors.white,
-                                      fit: BoxFit.cover,
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      '${wTw.data![0].weather!.description}',
-                                      overflow: TextOverflow.ellipsis,
-                                      style: GoogleFonts.lato(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w300,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    // ignore: avoid_print
-                                    print('Tapped Details');
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 20),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Details',
-                                          style: GoogleFonts.lato(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        const Icon(
-                                          Icons.arrow_forward_ios,
-                                          color: Colors.white,
-                                          size: 14,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Column(
+                  Row(
                     children: [
-                      Container(
-                        margin: const EdgeInsets.symmetric(vertical: 20),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 0.3,
+                      for (int index = 0; index < datas.data!.length; index++)
+                        if (index == _currentPage)
+                          SliderDotWidget(
+                            isActive: true,
+                          )
+                        else
+                          SliderDotWidget(
+                            isActive: false,
                           ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                Text(
-                                  'Wind',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Text(
-                                  '${wTw.data![0].windSpd}',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Text(
-                                  'm/s',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Stack(
-                                  children: [
-                                    Container(
-                                      height: 5,
-                                      width: 50,
-                                      color: Colors.white70,
-                                    ),
-                                    Container(
-                                      height: 5,
-                                      width: wTw.data![0].windSpd,
-                                      color: Colors.blueAccent,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  'Humidity',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Text(
-                                  '${wTw.data![0].rh}',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Text(
-                                  '%',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Stack(
-                                  children: [
-                                    Container(
-                                      height: 5,
-                                      width: 50,
-                                      color: Colors.white70,
-                                    ),
-                                    Container(
-                                      height: 5,
-                                      width: barHumidity,
-                                      color: Colors.greenAccent,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  'Clouds',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Text(
-                                  '${wTw.data![0].cloudsMid}',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Text(
-                                  'mm',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Stack(
-                                  children: [
-                                    Container(
-                                      height: 5,
-                                      width: 50,
-                                      color: Colors.white70,
-                                    ),
-                                    Container(
-                                      height: 5,
-                                      width: barCloud,
-                                      color: Colors.yellowAccent,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
                     ],
                   ),
                 ],
               ),
+            ),
+            PageView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: datas.data!.length,
+              onPageChanged: _onPageChanged,
+              itemBuilder: (context, index) {
+                return Container(
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(
+                                  height: 90,
+                                ),
+                                Text(
+                                  '${datas.cityName}',
+                                  style: GoogleFonts.lato(
+                                    fontSize: 40,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Text(
+                                  '${datas.data![index].datetime}',
+                                  style: GoogleFonts.lato(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'valid : ${datas.data![index].validDate}',
+                                  style: GoogleFonts.lato(
+                                    fontSize: 10,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Text(
+                                  '${datas.data![index].temp}°',
+                                  style: GoogleFonts.lato(
+                                    fontSize: 85,
+                                    fontWeight: FontWeight.w300,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Image.network(
+                                          'https://www.weatherbit.io/static/img/icons/${datas.data![index].weather!.icon}.png',
+                                          height: 30,
+                                          width: 30,
+                                          color: Colors.white,
+                                          fit: BoxFit.cover,
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          '${datas.data![index].weather!.description}',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: GoogleFonts.lato(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w300,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: 20),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.white,
+                                width: 0.3,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  children: [
+                                    Text(
+                                      'Wind',
+                                      style: GoogleFonts.lato(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Text(
+                                      '${datas.data![index].windSpd}',
+                                      style: GoogleFonts.lato(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Text(
+                                      'm/s',
+                                      style: GoogleFonts.lato(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Stack(
+                                      children: [
+                                        Container(
+                                          height: 5,
+                                          width: 50,
+                                          color: Colors.white70,
+                                        ),
+                                        Container(
+                                          height: 5,
+                                          width: 50,
+                                          color: Colors.blueAccent,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    Text(
+                                      'Humidity',
+                                      style: GoogleFonts.lato(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Text(
+                                      '${datas.data![index].rh}',
+                                      style: GoogleFonts.lato(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Text(
+                                      '%',
+                                      style: GoogleFonts.lato(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Stack(
+                                      children: [
+                                        Container(
+                                          height: 5,
+                                          width: 50,
+                                          color: Colors.white70,
+                                        ),
+                                        Container(
+                                          height: 5,
+                                          width: 50,
+                                          color: Colors.greenAccent,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    Text(
+                                      'Clouds',
+                                      style: GoogleFonts.lato(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Text(
+                                      '${datas.data![index].clouds}',
+                                      style: GoogleFonts.lato(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Text(
+                                      'mm',
+                                      style: GoogleFonts.lato(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Stack(
+                                      children: [
+                                        Container(
+                                          height: 5,
+                                          width: 50,
+                                          color: Colors.white70,
+                                        ),
+                                        Container(
+                                          height: 5,
+                                          width: 50,
+                                          color: Colors.yellowAccent,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
           ],
         ),
