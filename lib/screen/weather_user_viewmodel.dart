@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:tenkoyoho2/model/api/weather_user_api.dart';
 import 'package:tenkoyoho2/model/weather_model.dart';
 
+enum WeatherUserViewState {
+  idle,
+  loading,
+  loaded,
+  error,
+}
+
 class WeatherUserViewModel with ChangeNotifier {
   final WeatherModel _weathers = WeatherModel(
     cityName: '',

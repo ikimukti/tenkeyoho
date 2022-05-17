@@ -5,6 +5,7 @@ import 'package:tenkoyoho2/screen/splash_screen.dart';
 import 'package:tenkoyoho2/screen/weather_detail_screen.dart';
 import 'package:tenkoyoho2/screen/weather_indonesia_screen.dart';
 import 'package:tenkoyoho2/screen/weather_indonesia_viewmodel.dart';
+import 'package:tenkoyoho2/screen/weather_search_screen.dart';
 import 'package:tenkoyoho2/screen/weather_world_viewmodel.dart';
 import 'package:tenkoyoho2/screen/weather_user_viewmodel.dart';
 import 'package:tenkoyoho2/screen/weather_viewmodel.dart';
@@ -80,6 +81,8 @@ class MyApp extends StatelessWidget {
             return routeBuilder(const SplashScreen(), set);
           case WeatherDetailScreen.route:
             return routeBuilder(const WeatherDetailScreen(), set);
+          case WeatherSearchScreen.route:
+            return routeBuilder(const WeatherSearchScreen(), set);
           default:
             return routeBuilder(const WeatherAppScreen(), set);
         }

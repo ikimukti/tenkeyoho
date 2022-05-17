@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 // import 'package:transformer_page_view/transformer_page_view.dart';
 import 'package:tenkoyoho2/model/data/static_data.dart';
 import 'package:tenkoyoho2/screen/weather_detail_screen.dart';
+import 'package:tenkoyoho2/screen/weather_search_screen.dart';
 // import 'package:tenkoyoho2/model/weather_locations.dart';
 import 'package:tenkoyoho2/screen/weather_user_viewmodel.dart';
 import 'package:tenkoyoho2/screen/weather_viewmodel.dart';
@@ -49,7 +50,8 @@ class _WeatherAppScreenState extends State<WeatherAppScreen> {
   // int _currentPage = 0;
   late String bgImg;
   bool add = true;
-
+  final double? _currentLeadingWidth = 100;
+  bool search = false;
   @override
   initState() {
     super.initState();
@@ -117,7 +119,6 @@ class _WeatherAppScreenState extends State<WeatherAppScreen> {
   // }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
     final weatherViewModel = Provider.of<WeatherViewModel>(context);
@@ -221,7 +222,7 @@ class _WeatherAppScreenState extends State<WeatherAppScreen> {
         title: const Text(''),
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
-        leadingWidth: 100,
+        leadingWidth: _currentLeadingWidth,
         elevation: 0,
         leading: Row(
           mainAxisSize: MainAxisSize.min,
@@ -246,7 +247,12 @@ class _WeatherAppScreenState extends State<WeatherAppScreen> {
                 color: Colors.white,
                 size: 25,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  WeatherSearchScreen.route,
+                );
+              },
             ),
           ],
         ),

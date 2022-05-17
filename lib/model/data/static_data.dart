@@ -153,4 +153,10 @@ class StaticData {
       'bg': 'assets/UnknownPrecipitation.jpg',
     },
   ];
+  static const List<String> country = [
+    'Afghanistan',
+    'Albania',
+    'Algeria',
+    'Andorra',
+  ];
 }
