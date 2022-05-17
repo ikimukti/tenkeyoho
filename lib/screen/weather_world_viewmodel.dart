@@ -5,10 +5,24 @@ import 'package:tenkoyoho2/model/api/weather_api.dart';
 
 import 'package:tenkoyoho2/model/weather_model.dart';
 
+enum WeatherWorldViewState {
+  idle,
+  loading,
+  loaded,
+  error,
+}
+
 class WeatherWorldViewModel with ChangeNotifier {
   final List<WeatherModel> _weathers = [];
 
   List<WeatherModel> get weathers => _weathers;
+  WeatherWorldViewState _state = WeatherWorldViewState.idle;
+  WeatherWorldViewState get state => _state;
+
+  ChangeState(WeatherWorldViewState state) {
+    _state = state;
+    notifyListeners();
+  }
 
   bool repeat = true;
   getAllWeathers() async {

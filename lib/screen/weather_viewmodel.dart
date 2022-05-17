@@ -4,8 +4,22 @@ import 'package:tenkoyoho2/model/api/weather_api.dart';
 
 import 'package:tenkoyoho2/model/weather_model.dart';
 
+enum WeatherViewState {
+  idle,
+  loading,
+  loaded,
+  error,
+}
+
 class WeatherViewModel with ChangeNotifier {
   final List<WeatherModel> _weathers = [];
+  WeatherViewState _state = WeatherViewState.idle;
+  WeatherViewState get state => _state;
+
+  changeState(WeatherViewState state) {
+    _state = state;
+    notifyListeners();
+  }
 
   List<WeatherModel> get weathers => _weathers;
 

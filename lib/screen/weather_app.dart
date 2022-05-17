@@ -122,6 +122,28 @@ class _WeatherAppScreenState extends State<WeatherAppScreen> {
   @override
   Widget build(BuildContext context) {
     final weatherViewModel = Provider.of<WeatherViewModel>(context);
+    // Widget body(WeatherViewModel weatherViewModel) {
+    //   final isLoading = weatherViewModel.state == WeatherViewState.loading;
+    //   final isError = weatherViewModel.state == WeatherViewState.error;
+    //   final isLoaded = weatherViewModel.state == WeatherViewState.loaded;
+    //   final isIdle = weatherViewModel.state == WeatherViewState.idle;
+
+    //   if (isLoading) {
+    //     return Center(
+    //       child: CircularProgressIndicator(),
+    //     );
+    //   } else if (isError) {
+    //     return Center(
+    //       child: Text('Error'),
+    //     );
+    //   } else if (isLoaded) {
+    //     return _buildWeatherList(weatherViewModel);
+    //   } else if (isIdle) {
+    //     return Center(
+    //       child: Text('Idle'),
+    //     );
+    //   }
+    // }
     if (weatherViewModel.weathers.isEmpty) {
       return Container(
         decoration: const BoxDecoration(
