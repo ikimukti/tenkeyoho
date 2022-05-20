@@ -15,6 +15,7 @@ class WeatherSearchScreen extends StatefulWidget {
 }
 
 class _WeatherSearchScreenState extends State<WeatherSearchScreen> {
+  final String _navIndex = '/weather_search';
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   List<String> country = StaticData.country;
@@ -23,7 +24,7 @@ class _WeatherSearchScreenState extends State<WeatherSearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      endDrawer: const NavigationDrawerWidget(),
+      endDrawer: NavigationDrawerWidget(navIndex: _navIndex),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: const Text(''),
@@ -41,11 +42,13 @@ class _WeatherSearchScreenState extends State<WeatherSearchScreen> {
                 size: 25,
               ),
               onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  WeatherAppScreen.route,
-                  (Route<dynamic> route) => false,
-                );
+                if (_navIndex != '/') {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    WeatherAppScreen.route,
+                    (route) => false,
+                  );
+                }
               },
             ),
             IconButton(
@@ -55,10 +58,13 @@ class _WeatherSearchScreenState extends State<WeatherSearchScreen> {
                 size: 25,
               ),
               onPressed: () {
-                Navigator.pushNamed(
-                  context,
-                  WeatherSearchScreen.route,
-                );
+                if (_navIndex != '/weather_search') {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    WeatherSearchScreen.route,
+                    (route) => false,
+                  );
+                }
               },
             ),
           ],

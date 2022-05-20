@@ -9,6 +9,7 @@ import 'package:tenkoyoho2/model/data/static_data.dart';
 // import 'package:tenkoyoho2/screen/weather_world_viewmodel.dart';
 import 'package:tenkoyoho2/screen/weather_app.dart';
 import 'package:tenkoyoho2/screen/weather_indonesia/weather_indonesia_viewmodel.dart';
+import 'package:tenkoyoho2/screen/weather_search/weather_search_screen.dart';
 // import 'package:tenkoyoho2/screen/weather_viewmodel.dart';
 // import 'package:tenkoyoho2/widgets/buildin_transform.dart';
 import 'package:tenkoyoho2/widget/navigation_drawer.dart';
@@ -26,6 +27,7 @@ class WeatherIndoScreen extends StatefulWidget {
 }
 
 class _WeatherIndoScreenState extends State<WeatherIndoScreen> {
+  final String _navIndex = '/weather_indo';
   int _currentPage = 0;
   String bgImg = 'assets/sunny.jpg';
   bool add = true;
@@ -107,7 +109,7 @@ class _WeatherIndoScreenState extends State<WeatherIndoScreen> {
 
     return Scaffold(
       key: _scaffoldKey,
-      endDrawer: const NavigationDrawerWidget(),
+      endDrawer: NavigationDrawerWidget(navIndex: _navIndex),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: const Text(''),
@@ -125,11 +127,13 @@ class _WeatherIndoScreenState extends State<WeatherIndoScreen> {
                 size: 25,
               ),
               onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  WeatherAppScreen.route,
-                  (route) => false,
-                );
+                if (_navIndex != '/') {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    WeatherAppScreen.route,
+                    (route) => false,
+                  );
+                }
               },
             ),
             IconButton(
@@ -138,7 +142,15 @@ class _WeatherIndoScreenState extends State<WeatherIndoScreen> {
                 color: Colors.white,
                 size: 25,
               ),
-              onPressed: () {},
+              onPressed: () {
+                if (_navIndex != '/weather_search') {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    WeatherSearchScreen.route,
+                    (route) => false,
+                  );
+                }
+              },
             ),
           ],
         ),

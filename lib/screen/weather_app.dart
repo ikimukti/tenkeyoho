@@ -12,13 +12,14 @@ import 'package:tenkoyoho2/widget/navigation_drawer.dart';
 
 class WeatherAppScreen extends StatefulWidget {
   const WeatherAppScreen({Key? key}) : super(key: key);
-  static const String route = '/weather_app';
+  static const String route = '/';
 
   @override
   State<WeatherAppScreen> createState() => _WeatherAppScreenState();
 }
 
 class _WeatherAppScreenState extends State<WeatherAppScreen> {
+  final String _navIndex = '/';
   LocationService locationService = LocationService();
   double latitude = 0.0;
   double longitude = 0.0;
@@ -231,13 +232,13 @@ class _WeatherAppScreenState extends State<WeatherAppScreen> {
 
     return Scaffold(
       key: _scaffoldKey,
-      endDrawer: const NavigationDrawerWidget(),
+      endDrawer: NavigationDrawerWidget(navIndex: _navIndex),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: const Text(''),
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
-        leadingWidth: _currentLeadingWidth,
+        leadingWidth: 100,
         elevation: 0,
         leading: Row(
           mainAxisSize: MainAxisSize.min,
@@ -249,11 +250,13 @@ class _WeatherAppScreenState extends State<WeatherAppScreen> {
                 size: 25,
               ),
               onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  WeatherAppScreen.route,
-                  (Route<dynamic> route) => false,
-                );
+                if (_navIndex != '/') {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    WeatherAppScreen.route,
+                    (route) => false,
+                  );
+                }
               },
             ),
             IconButton(
@@ -263,10 +266,13 @@ class _WeatherAppScreenState extends State<WeatherAppScreen> {
                 size: 25,
               ),
               onPressed: () {
-                Navigator.pushNamed(
-                  context,
-                  WeatherSearchScreen.route,
-                );
+                if (_navIndex != '/weather_search') {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    WeatherSearchScreen.route,
+                    (route) => false,
+                  );
+                }
               },
             ),
           ],

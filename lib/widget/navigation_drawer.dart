@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'package:tenkoyoho2/screen/weather_indonesia/weather_indonesia_screen.dart';
 import 'package:tenkoyoho2/screen/weather_world/weather_world_screen.dart';
 
-class NavigationDrawerWidget extends StatelessWidget {
-  const NavigationDrawerWidget({Key? key}) : super(key: key);
+// ignore: must_be_immutable
+class NavigationDrawerWidget extends StatefulWidget {
+  String navIndex = '';
+  NavigationDrawerWidget({
+    Key? key,
+    required this.navIndex,
+  }) : super(key: key);
 
+  @override
+  State<NavigationDrawerWidget> createState() => _NavigationDrawerWidgetState();
+}
+
+class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -43,11 +54,10 @@ class NavigationDrawerWidget extends StatelessWidget {
               ),
             ),
             onTap: () {
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                WeatherWorldScreen.route,
-                (route) => false,
-              );
+              if (widget.navIndex != WeatherWorldScreen.route) {
+                Navigator.pushReplacementNamed(
+                    context, WeatherWorldScreen.route);
+              }
             },
           ),
           ListTile(
@@ -66,11 +76,10 @@ class NavigationDrawerWidget extends StatelessWidget {
               ),
             ),
             onTap: () {
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                WeatherIndoScreen.route,
-                (route) => false,
-              );
+              if (widget.navIndex != WeatherIndoScreen.route) {
+                Navigator.pushReplacementNamed(
+                    context, WeatherIndoScreen.route);
+              }
             },
           ),
           ListTile(

@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:tenkoyoho2/model/data/static_data.dart';
 import 'package:tenkoyoho2/screen/weather_app.dart';
+import 'package:tenkoyoho2/screen/weather_search/weather_search_screen.dart';
 import 'package:tenkoyoho2/screen/weather_world/weather_world_viewmodel.dart';
 import 'package:tenkoyoho2/widget/navigation_drawer.dart';
 import 'package:tenkoyoho2/widget/single_weather_world.dart';
@@ -17,6 +18,7 @@ class WeatherWorldScreen extends StatefulWidget {
 }
 
 class _WeatherWorldScreenState extends State<WeatherWorldScreen> {
+  final String _navIndex = '/weather_world';
   int _currentPage = 0;
   String bgImg = 'assets/sunny.jpg';
   bool add = true;
@@ -98,7 +100,7 @@ class _WeatherWorldScreenState extends State<WeatherWorldScreen> {
 
     return Scaffold(
       key: _scaffoldKey,
-      endDrawer: const NavigationDrawerWidget(),
+      endDrawer: NavigationDrawerWidget(navIndex: _navIndex),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: const Text(''),
@@ -116,11 +118,13 @@ class _WeatherWorldScreenState extends State<WeatherWorldScreen> {
                 size: 25,
               ),
               onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  WeatherAppScreen.route,
-                  (route) => false,
-                );
+                if (_navIndex != '/') {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    WeatherAppScreen.route,
+                    (route) => false,
+                  );
+                }
               },
             ),
             IconButton(
@@ -129,7 +133,15 @@ class _WeatherWorldScreenState extends State<WeatherWorldScreen> {
                 color: Colors.white,
                 size: 25,
               ),
-              onPressed: () {},
+              onPressed: () {
+                if (_navIndex != '/weather_search') {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    WeatherSearchScreen.route,
+                    (route) => false,
+                  );
+                }
+              },
             ),
           ],
         ),
