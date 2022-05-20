@@ -78,7 +78,7 @@ class _WeatherWorldScreenState extends State<WeatherWorldScreen> {
     }
     String? wT =
         weatherViewModel.weathers[_currentPage].data![0].weather?.description;
-    print('This is wT: $wT');
+    // print('This is wT: $wT');
 
     // print('This is bgImg: $bgImg');
     List<Map> weatherTypes = StaticData.weatherTypes;
@@ -86,12 +86,12 @@ class _WeatherWorldScreenState extends State<WeatherWorldScreen> {
     for (int i = 0; i < weatherTypes.length; i++) {
       // print(weatherTypes[i]['weatherType']);
       // print(wT);
-      print('$wT = ${weatherTypes[i]['weatherType']}');
+      // print('$wT = ${weatherTypes[i]['weatherType']}');
       if (weatherTypes[i]['weatherType'] == wT) {
         // print(
         //     'This is weatherTypes[i][\'weatherType\']: ${weatherTypes[i]['weatherType']}');
         bgImg = weatherTypes[i]['bg'];
-        print('This is bgImg: $bgImg');
+        // print('This is bgImg: $bgImg');
         break;
       }
     }

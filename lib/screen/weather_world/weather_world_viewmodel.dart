@@ -19,7 +19,7 @@ class WeatherWorldViewModel with ChangeNotifier {
   WeatherWorldViewState _state = WeatherWorldViewState.idle;
   WeatherWorldViewState get state => _state;
 
-  ChangeState(WeatherWorldViewState state) {
+  changeState(WeatherWorldViewState state) {
     _state = state;
     notifyListeners();
   }

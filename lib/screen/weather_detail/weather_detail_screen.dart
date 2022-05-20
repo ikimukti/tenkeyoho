@@ -43,7 +43,7 @@ class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
     final WeatherModel datas =
         ModalRoute.of(context)?.settings.arguments as WeatherModel;
     String? wT = datas.data![_currentPage].weather!.description;
-    print('This is wT: $wT');
+    // print('This is wT: $wT');
 
     // print('This is bgImg: $bgImg');
     List<Map> weatherTypes = StaticData.weatherTypes;
@@ -51,12 +51,12 @@ class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
     for (int i = 0; i < weatherTypes.length; i++) {
       // print(weatherTypes[i]['weatherType']);
       // print(wT);
-      print('$wT = ${weatherTypes[i]['weatherType']}');
+      // print('$wT = ${weatherTypes[i]['weatherType']}');
       if (weatherTypes[i]['weatherType'] == wT) {
         // print(
         //     'This is weatherTypes[i][\'weatherType\']: ${weatherTypes[i]['weatherType']}');
         bgImg = weatherTypes[i]['bg'];
-        print('This is bgImg: $bgImg');
+        // print('This is bgImg: $bgImg');
         break;
       }
     }
