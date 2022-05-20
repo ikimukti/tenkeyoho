@@ -44,30 +44,6 @@ class WeatherViewModel with ChangeNotifier {
         'lat': -6.9175,
         'lon': 107.6191,
       },
-      // {
-      //   'city': 'Surabaya',
-      //   'code': 'ID',
-      //   'lat': -7.2514,
-      //   'lon': 112.7508,
-      // },
-      // {
-      //   'city': 'Malang',
-      //   'code': 'ID',
-      //   'lat': -7.977,
-      //   'lon': 112.6213,
-      // },
-      // {
-      //   'city': 'Yogyakarta',
-      //   'code': 'ID',
-      //   'lat': -7.7874,
-      //   'lon': 110.4203,
-      // },
-      // {
-      //   'city': 'Bali',
-      //   'code': 'ID',
-      //   'lat': -8.1192,
-      //   'lon': 113.6465,
-      // },
     ];
     List<WeatherModel> _weather2 = await WeatherAPI.getWeathers(locationList);
     if (repeat) {

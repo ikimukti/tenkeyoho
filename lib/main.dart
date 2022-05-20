@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tenkoyoho2/model/db_manager/db_manager.dart';
-import 'package:tenkoyoho2/screen/splash_screen.dart';
-import 'package:tenkoyoho2/screen/weather_detail_screen.dart';
-import 'package:tenkoyoho2/screen/weather_indonesia_screen.dart';
-import 'package:tenkoyoho2/screen/weather_indonesia_viewmodel.dart';
-import 'package:tenkoyoho2/screen/weather_search_screen.dart';
-import 'package:tenkoyoho2/screen/weather_world_viewmodel.dart';
+import 'package:tenkoyoho2/screen/weather_detail/weather_detail_screen.dart';
+import 'package:tenkoyoho2/screen/weather_indonesia/weather_indonesia_screen.dart';
+import 'package:tenkoyoho2/screen/weather_indonesia/weather_indonesia_viewmodel.dart';
+import 'package:tenkoyoho2/screen/weather_search/weather_search_screen.dart';
 import 'package:tenkoyoho2/screen/weather_user_viewmodel.dart';
 import 'package:tenkoyoho2/screen/weather_viewmodel.dart';
 import 'package:tenkoyoho2/screen/weather_app.dart';
-import 'package:tenkoyoho2/screen/weather_world_screen.dart';
+import 'package:tenkoyoho2/screen/weather_world/weather_world_screen.dart';
+import 'package:tenkoyoho2/screen/weather_world/weather_world_viewmodel.dart';
 
 void main() {
   runApp(
@@ -77,8 +76,6 @@ class MyApp extends StatelessWidget {
             return routeBuilder(const WeatherWorldScreen(), set);
           case WeatherIndoScreen.route:
             return routeBuilder(const WeatherIndoScreen(), set);
-          case SplashScreen.route:
-            return routeBuilder(const SplashScreen(), set);
           case WeatherDetailScreen.route:
             return routeBuilder(const WeatherDetailScreen(), set);
           case WeatherSearchScreen.route:

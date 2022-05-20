@@ -6,24 +6,26 @@ import 'package:provider/provider.dart';
 // import 'package:transformer_page_view/transformer_page_view.dart';
 import 'package:tenkoyoho2/model/data/static_data.dart';
 // import 'package:tenkoyoho2/model/weather_locations.dart';
-import 'package:tenkoyoho2/screen/weather_world_viewmodel.dart';
+// import 'package:tenkoyoho2/screen/weather_world_viewmodel.dart';
 import 'package:tenkoyoho2/screen/weather_app.dart';
+import 'package:tenkoyoho2/screen/weather_indonesia/weather_indonesia_viewmodel.dart';
 // import 'package:tenkoyoho2/screen/weather_viewmodel.dart';
 // import 'package:tenkoyoho2/widgets/buildin_transform.dart';
 import 'package:tenkoyoho2/widget/navigation_drawer.dart';
+import 'package:tenkoyoho2/widget/single_weather_indo.dart';
 // import 'package:tenkoyoho2/widget/single_weather.dart';
-import 'package:tenkoyoho2/widget/single_weather_world.dart';
+// import 'package:tenkoyoho2/widget/single_weather_world.dart';
 import 'package:tenkoyoho2/widget/slider_dot.dart';
 
-class WeatherWorldScreen extends StatefulWidget {
-  const WeatherWorldScreen({Key? key}) : super(key: key);
-  static const String route = '/weather_world';
+class WeatherIndoScreen extends StatefulWidget {
+  const WeatherIndoScreen({Key? key}) : super(key: key);
+  static const String route = '/weather_indo';
 
   @override
-  State<WeatherWorldScreen> createState() => _WeatherWorldScreenState();
+  State<WeatherIndoScreen> createState() => _WeatherIndoScreenState();
 }
 
-class _WeatherWorldScreenState extends State<WeatherWorldScreen> {
+class _WeatherIndoScreenState extends State<WeatherIndoScreen> {
   int _currentPage = 0;
   String bgImg = 'assets/sunny.jpg';
   bool add = true;
@@ -40,7 +42,7 @@ class _WeatherWorldScreenState extends State<WeatherWorldScreen> {
       super.didChangeDependencies();
       WidgetsBinding.instance?.addPostFrameCallback(
         (_) {
-          Provider.of<WeatherWorldViewModel>(context, listen: false)
+          Provider.of<WeatherIndoViewModel>(context, listen: false)
               .getAllWeathers();
         },
       );
@@ -52,8 +54,8 @@ class _WeatherWorldScreenState extends State<WeatherWorldScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final WeatherWorldViewModel weatherViewModel =
-        Provider.of<WeatherWorldViewModel>(context);
+    final WeatherIndoViewModel weatherViewModel =
+        Provider.of<WeatherIndoViewModel>(context);
     if (weatherViewModel.weathers.isEmpty) {
       return Container(
         decoration: const BoxDecoration(
@@ -213,7 +215,7 @@ class _WeatherWorldScreenState extends State<WeatherWorldScreen> {
               itemCount: weatherViewModel.weathers.length,
               onPageChanged: _onPageChanged,
               itemBuilder: (context, index) {
-                return SingleWeatherWorldWidget(
+                return SingleWeatherIndoWidget(
                   index: index,
                 );
               },

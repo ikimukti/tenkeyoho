@@ -2,20 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-// ignore: import_of_legacy_library_into_null_safe
-// import 'package:transformer_page_view/transformer_page_view.dart';
 import 'package:tenkoyoho2/model/data/static_data.dart';
-import 'package:tenkoyoho2/screen/weather_detail_screen.dart';
-import 'package:tenkoyoho2/screen/weather_search_screen.dart';
-// import 'package:tenkoyoho2/model/weather_locations.dart';
+import 'package:tenkoyoho2/screen/weather_detail/weather_detail_screen.dart';
+import 'package:tenkoyoho2/screen/weather_search/weather_search_screen.dart';
 import 'package:tenkoyoho2/screen/weather_user_viewmodel.dart';
 import 'package:tenkoyoho2/screen/weather_viewmodel.dart';
-// import 'package:tenkoyoho2/screen/weather_world_screen.dart';
 import 'package:tenkoyoho2/service/location_service.dart';
-// import 'package:tenkoyoho2/widgets/buildin_transform.dart';
 import 'package:tenkoyoho2/widget/navigation_drawer.dart';
-// import 'package:tenkoyoho2/widget/single_weather.dart';
-// import 'package:tenkoyoho2/widget/slider_dot.dart';
 
 class WeatherAppScreen extends StatefulWidget {
   const WeatherAppScreen({Key? key}) : super(key: key);

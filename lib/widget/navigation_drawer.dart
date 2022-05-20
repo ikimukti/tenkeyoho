@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tenkoyoho2/screen/weather_indonesia_screen.dart';
-import 'package:tenkoyoho2/screen/weather_world_screen.dart';
+import 'package:tenkoyoho2/screen/weather_indonesia/weather_indonesia_screen.dart';
+import 'package:tenkoyoho2/screen/weather_world/weather_world_screen.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
   const NavigationDrawerWidget({Key? key}) : super(key: key);

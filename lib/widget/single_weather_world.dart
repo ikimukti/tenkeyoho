@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:tenkoyoho2/screen/weather_detail_screen.dart';
-// import 'package:tenkoyoho2/model/weather_locations.dart';
-import 'package:tenkoyoho2/screen/weather_world_viewmodel.dart';
+import 'package:tenkoyoho2/screen/weather_detail/weather_detail_screen.dart';
+import 'package:tenkoyoho2/screen/weather_world/weather_world_viewmodel.dart';
 
 // ignore: must_be_immutable
 class SingleWeatherWorldWidget extends StatelessWidget {

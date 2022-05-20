@@ -1,31 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-// ignore: import_of_legacy_library_into_null_safe
-// import 'package:transformer_page_view/transformer_page_view.dart';
 import 'package:tenkoyoho2/model/data/static_data.dart';
-import 'package:tenkoyoho2/screen/weather_indonesia_viewmodel.dart';
-// import 'package:tenkoyoho2/model/weather_locations.dart';
-// import 'package:tenkoyoho2/screen/weather_world_viewmodel.dart';
 import 'package:tenkoyoho2/screen/weather_app.dart';
-// import 'package:tenkoyoho2/screen/weather_viewmodel.dart';
-// import 'package:tenkoyoho2/widgets/buildin_transform.dart';
+import 'package:tenkoyoho2/screen/weather_world/weather_world_viewmodel.dart';
 import 'package:tenkoyoho2/widget/navigation_drawer.dart';
-import 'package:tenkoyoho2/widget/single_weather_indo.dart';
-// import 'package:tenkoyoho2/widget/single_weather.dart';
-// import 'package:tenkoyoho2/widget/single_weather_world.dart';
+import 'package:tenkoyoho2/widget/single_weather_world.dart';
 import 'package:tenkoyoho2/widget/slider_dot.dart';
 
-class WeatherIndoScreen extends StatefulWidget {
-  const WeatherIndoScreen({Key? key}) : super(key: key);
-  static const String route = '/weather_indo';
+class WeatherWorldScreen extends StatefulWidget {
+  const WeatherWorldScreen({Key? key}) : super(key: key);
+  static const String route = '/weather_world';
 
   @override
-  State<WeatherIndoScreen> createState() => _WeatherIndoScreenState();
+  State<WeatherWorldScreen> createState() => _WeatherWorldScreenState();
 }
 
-class _WeatherIndoScreenState extends State<WeatherIndoScreen> {
+class _WeatherWorldScreenState extends State<WeatherWorldScreen> {
   int _currentPage = 0;
   String bgImg = 'assets/sunny.jpg';
   bool add = true;
@@ -42,7 +33,7 @@ class _WeatherIndoScreenState extends State<WeatherIndoScreen> {
       super.didChangeDependencies();
       WidgetsBinding.instance?.addPostFrameCallback(
         (_) {
-          Provider.of<WeatherIndoViewModel>(context, listen: false)
+          Provider.of<WeatherWorldViewModel>(context, listen: false)
               .getAllWeathers();
         },
       );
@@ -54,8 +45,8 @@ class _WeatherIndoScreenState extends State<WeatherIndoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final WeatherIndoViewModel weatherViewModel =
-        Provider.of<WeatherIndoViewModel>(context);
+    final WeatherWorldViewModel weatherViewModel =
+        Provider.of<WeatherWorldViewModel>(context);
     if (weatherViewModel.weathers.isEmpty) {
       return Container(
         decoration: const BoxDecoration(
@@ -215,7 +206,7 @@ class _WeatherIndoScreenState extends State<WeatherIndoScreen> {
               itemCount: weatherViewModel.weathers.length,
               onPageChanged: _onPageChanged,
               itemBuilder: (context, index) {
-                return SingleWeatherIndoWidget(
+                return SingleWeatherWorldWidget(
                   index: index,
                 );
               },
