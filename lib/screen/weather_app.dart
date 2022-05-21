@@ -44,7 +44,7 @@ class _WeatherAppScreenState extends State<WeatherAppScreen> {
   // int _currentPage = 0;
   late String bgImg;
   bool add = true;
-  final double? _currentLeadingWidth = 100;
+  // final double? _currentLeadingWidth = 100;
   bool search = false;
   @override
   initState() {

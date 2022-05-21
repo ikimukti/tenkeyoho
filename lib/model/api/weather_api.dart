@@ -4,7 +4,7 @@ import 'package:tenkoyoho2/model/weather_model.dart';
 
 class WeatherAPI {
   static Future<List<WeatherModel>> getWeathers(List<Map> locationList) async {
-    String kOpenWeatherMapAPIKey = '3e9b6ba197ed4078b95189c88f037608';
+    String kOpenWeatherMapAPIKey = 'a5737cc1bcea45cb8d3ddc5771c1c47d';
     List<WeatherModel> weathers = [];
     for (var i = 0; i < locationList.length; i++) {
       Map location = locationList[i];

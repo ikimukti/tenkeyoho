@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:searchfield/searchfield.dart';
 import 'package:tenkoyoho2/model/data/static_data.dart';
 import 'package:tenkoyoho2/screen/weather_app.dart';
+import 'package:tenkoyoho2/screen/weather_search/weather_result_screen.dart';
 import 'package:tenkoyoho2/widget/navigation_drawer.dart';
 
 class WeatherSearchScreen extends StatefulWidget {
@@ -16,9 +17,10 @@ class WeatherSearchScreen extends StatefulWidget {
 
 class _WeatherSearchScreenState extends State<WeatherSearchScreen> {
   final String _navIndex = '/weather_search';
+  String? _selected;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  List<String> country = StaticData.country;
+  List<Map> country = StaticData.country;
   String? selectedCountry;
   @override
   Widget build(BuildContext context) {
@@ -122,7 +124,7 @@ class _WeatherSearchScreenState extends State<WeatherSearchScreen> {
                 children: [
                   SizedBox(
                     width: double.infinity,
-                    height: MediaQuery.of(context).size.height * 0.3,
+                    height: MediaQuery.of(context).size.height * 0.4,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -153,7 +155,7 @@ class _WeatherSearchScreenState extends State<WeatherSearchScreen> {
                             ],
                           ),
                           child: SearchField<String>(
-                            maxSuggestionsInViewPort: 3,
+                            maxSuggestionsInViewPort: 5,
                             hint: 'Search City',
                             searchInputDecoration: InputDecoration(
                               enabledBorder: OutlineInputBorder(
@@ -171,18 +173,54 @@ class _WeatherSearchScreenState extends State<WeatherSearchScreen> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
-                            suggestionItemDecoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
                             onSuggestionTap: (value) {
                               setState(() {
-                                selectedCountry = 'a';
+                                _selected = value.searchKey;
+                                // print('Selected: ${value.searchKey}');
                               });
                             },
                             suggestions: country
-                                .map((e) => SearchFieldListItem<String>(e))
+                                .map(
+                                  (e) => SearchFieldListItem<String>(
+                                    e['country'] + ' - ' + e['city'],
+                                  ),
+                                )
                                 .toList(),
+                          ),
+                        ),
+                        Text('Selected: ${_selected ?? 'None'}'),
+                        ElevatedButton(
+                          onPressed: () {
+                            if (_selected != null) {
+                              String fcountry = _selected!.split(' - ')[0];
+                              String fcity = _selected!.split(' - ')[1];
+                              Map<dynamic, dynamic> data = {
+                                'country': 'Colombia',
+                                'code': 'CO',
+                                'city': 'Bogota',
+                                'lat': 4.6,
+                                'lon': -74.08,
+                              };
+                              for (var i = 0; i < country.length; i++) {
+                                if (country[i]['country'] == fcountry &&
+                                    country[i]['city'] == fcity) {
+                                  data = country[i];
+                                  break;
+                                }
+                              }
+                              Navigator.pushNamed(
+                                context,
+                                WeatherResultScreen.route,
+                                arguments: data,
+                              );
+                            }
+                          },
+                          child: Text(
+                            'Get Weather',
+                            style: GoogleFonts.lato(
+                              fontSize: 16,
+                              color: Colors.white,
+                            ),
                           ),
                         )
                       ],

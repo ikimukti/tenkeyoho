@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:tenkoyoho2/model/data/static_data.dart';
-import 'package:tenkoyoho2/model/weather_model.dart';
 import 'package:tenkoyoho2/screen/weather_app.dart';
 import 'package:tenkoyoho2/screen/weather_search/weather_search_screen.dart';
+import 'package:tenkoyoho2/screen/weather_search/weather_search_viewmodel.dart';
 import 'package:tenkoyoho2/widget/navigation_drawer.dart';
 import 'package:tenkoyoho2/widget/slider_dot.dart';
 
-class WeatherDetailScreen extends StatefulWidget {
-  const WeatherDetailScreen({Key? key}) : super(key: key);
-  static const String route = '/weather_details';
+class WeatherResultScreen extends StatefulWidget {
+  const WeatherResultScreen({Key? key}) : super(key: key);
+  static const String route = '/weather_result';
 
   @override
-  State<WeatherDetailScreen> createState() => _WeatherDetailScreenState();
+  State<WeatherResultScreen> createState() => _WeatherResultScreenState();
 }
 
-class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
-  final String _navIndex = '/weather_details';
+class _WeatherResultScreenState extends State<WeatherResultScreen> {
+  final String _navIndex = '/weather_result';
   int _currentPage = 0;
   late String bgImg = '';
   bool add = true;
@@ -32,9 +33,45 @@ class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final WeatherModel datas =
-        ModalRoute.of(context)?.settings.arguments as WeatherModel;
-    String? wT = datas.data![_currentPage].weather!.description;
+    final Map datas = ModalRoute.of(context)?.settings.arguments as Map;
+    double latitude = datas['lat'] ?? 0;
+    double longitude = datas['lon'] ?? 0;
+
+    final WeatherSearchViewModel weatherViewModel =
+        Provider.of<WeatherSearchViewModel>(context);
+    if (weatherViewModel.weathers.cityName == null) {
+      Provider.of<WeatherSearchViewModel>(context, listen: false)
+          .getWeathers(latitude, longitude);
+      return Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/tornado.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const <Widget>[
+              Image(
+                image: AssetImage('assets/splash.png'),
+                width: 300,
+              ),
+              CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                semanticsLabel: 'Loading...',
+                semanticsValue: 'Loading...',
+              ),
+            ],
+          ),
+        ),
+      );
+    } else {
+      // print(
+      //     'This is data from weatherViewModel: ${weatherViewModel.weathers.length}');
+    }
+    String? wT =
+        weatherViewModel.weathers.data![_currentPage].weather!.description;
     // print('This is wT: $wT');
 
     // print('This is bgImg: $bgImg');
@@ -52,23 +89,24 @@ class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
         break;
       }
     }
+
     double? widthWindSpd = 0;
-    if (datas.data![0].windSpd > 0) {
-      widthWindSpd = datas.data![0].windSpd.toDouble();
+    if (weatherViewModel.weathers.data![0].windSpd > 0) {
+      widthWindSpd = weatherViewModel.weathers.data![0].windSpd.toDouble();
       if (widthWindSpd! > 50) {
         widthWindSpd = 50;
       }
     }
     double? widthHumidity = 0;
-    if (datas.data![0].rh! > 0) {
-      widthHumidity = datas.data![0].rh!.toDouble();
+    if (weatherViewModel.weathers.data![0].rh! > 0) {
+      widthHumidity = weatherViewModel.weathers.data![0].rh!.toDouble();
       if (widthHumidity > 50) {
         widthHumidity = 50;
       }
     }
     double? widthVis = 0;
-    if (datas.data![0].vis! > 0) {
-      widthVis = datas.data![0].vis!.toDouble();
+    if (weatherViewModel.weathers.data![0].vis! > 0) {
+      widthVis = weatherViewModel.weathers.data![0].vis!.toDouble();
       if (widthVis! > 50) {
         widthVis = 50;
       }
@@ -171,7 +209,9 @@ class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
                 children: [
                   Row(
                     children: [
-                      for (int index = 0; index < datas.data!.length; index++)
+                      for (int index = 0;
+                          index < weatherViewModel.weathers.data!.length;
+                          index++)
                         if (index == _currentPage)
                           SliderDotWidget(
                             isActive: true,
@@ -187,7 +227,7 @@ class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
             ),
             PageView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: datas.data!.length,
+              itemCount: weatherViewModel.weathers.data!.length,
               onPageChanged: _onPageChanged,
               itemBuilder: (context, index) {
                 return Container(
@@ -208,7 +248,7 @@ class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
                                   height: 90,
                                 ),
                                 Text(
-                                  '${datas.cityName}',
+                                  '${weatherViewModel.weathers.cityName}',
                                   style: GoogleFonts.lato(
                                     fontSize: 40,
                                     fontWeight: FontWeight.bold,
@@ -216,7 +256,7 @@ class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
                                   ),
                                 ),
                                 Text(
-                                  '${datas.data![index].datetime}',
+                                  '${weatherViewModel.weathers.data![index].datetime}',
                                   style: GoogleFonts.lato(
                                     fontSize: 14,
                                     color: Colors.white,
@@ -228,14 +268,14 @@ class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'valid : ${datas.data![index].validDate}',
+                                  'valid : ${weatherViewModel.weathers.data![index].validDate}',
                                   style: GoogleFonts.lato(
                                     fontSize: 10,
                                     color: Colors.white,
                                   ),
                                 ),
                                 Text(
-                                  '${datas.data![index].temp}°',
+                                  '${weatherViewModel.weathers.data![index].temp}°',
                                   style: GoogleFonts.lato(
                                     fontSize: 85,
                                     fontWeight: FontWeight.w300,
@@ -249,7 +289,7 @@ class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
                                     Row(
                                       children: [
                                         Image.network(
-                                          'https://www.weatherbit.io/static/img/icons/${datas.data![index].weather!.icon}.png',
+                                          'https://www.weatherbit.io/static/img/icons/${weatherViewModel.weathers.data![index].weather!.icon}.png',
                                           height: 30,
                                           width: 30,
                                           color: Colors.white,
@@ -259,7 +299,7 @@ class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
                                           width: 10,
                                         ),
                                         Text(
-                                          '${datas.data![index].weather!.description}',
+                                          '${weatherViewModel.weathers.data![index].weather!.description}',
                                           overflow: TextOverflow.ellipsis,
                                           style: GoogleFonts.lato(
                                             fontSize: 15,
@@ -303,7 +343,7 @@ class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
                                       ),
                                     ),
                                     Text(
-                                      '${datas.data![index].windSpd}',
+                                      '${weatherViewModel.weathers.data![index].windSpd}',
                                       style: GoogleFonts.lato(
                                         fontSize: 24,
                                         fontWeight: FontWeight.bold,
@@ -348,7 +388,7 @@ class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
                                       ),
                                     ),
                                     Text(
-                                      '${datas.data![index].rh}',
+                                      '${weatherViewModel.weathers.data![index].rh}',
                                       style: GoogleFonts.lato(
                                         fontSize: 24,
                                         fontWeight: FontWeight.bold,
@@ -393,7 +433,7 @@ class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
                                       ),
                                     ),
                                     Text(
-                                      '${datas.data![index].clouds}',
+                                      '${weatherViewModel.weathers.data![index].vis}',
                                       style: GoogleFonts.lato(
                                         fontSize: 24,
                                         fontWeight: FontWeight.bold,

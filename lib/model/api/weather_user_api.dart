@@ -5,7 +5,7 @@ import 'package:tenkoyoho2/model/weather_model.dart';
 class WeatherUserAPI {
   static Future<WeatherModel> getWeatherUser(
       double latitude, double longitude) async {
-    String kOpenWeatherMapAPIKey = '3e9b6ba197ed4078b95189c88f037608';
+    String kOpenWeatherMapAPIKey = 'a5737cc1bcea45cb8d3ddc5771c1c47d';
     WeatherModel weather = WeatherModel();
     try {
       Response response = await Dio().get(

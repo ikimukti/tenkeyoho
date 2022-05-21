@@ -4,12 +4,14 @@ import 'package:tenkoyoho2/model/db_manager/db_manager.dart';
 import 'package:tenkoyoho2/screen/weather_detail/weather_detail_screen.dart';
 import 'package:tenkoyoho2/screen/weather_indonesia/weather_indonesia_screen.dart';
 import 'package:tenkoyoho2/screen/weather_indonesia/weather_indonesia_viewmodel.dart';
+import 'package:tenkoyoho2/screen/weather_search/weather_result_screen.dart';
 import 'package:tenkoyoho2/screen/weather_search/weather_search_screen.dart';
 import 'package:tenkoyoho2/screen/weather_user_viewmodel.dart';
 import 'package:tenkoyoho2/screen/weather_viewmodel.dart';
 import 'package:tenkoyoho2/screen/weather_app.dart';
 import 'package:tenkoyoho2/screen/weather_world/weather_world_screen.dart';
 import 'package:tenkoyoho2/screen/weather_world/weather_world_viewmodel.dart';
+import 'package:tenkoyoho2/screen/weather_search/weather_search_viewmodel.dart';
 
 void main() {
   runApp(
@@ -30,6 +32,9 @@ void main() {
         ),
         ChangeNotifierProvider(
           create: (_) => WeatherIndoViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => WeatherSearchViewModel(),
         ),
       ],
     ),
@@ -80,6 +85,8 @@ class MyApp extends StatelessWidget {
             return routeBuilder(const WeatherDetailScreen(), set);
           case WeatherSearchScreen.route:
             return routeBuilder(const WeatherSearchScreen(), set);
+          case WeatherResultScreen.route:
+            return routeBuilder(const WeatherResultScreen(), set);
           default:
             return routeBuilder(const WeatherAppScreen(), set);
         }
